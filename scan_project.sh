@@ -23,7 +23,7 @@ let CNT
   wget -q -c "${SONAR_SCANNER_CLI_URL}" -O /tmp/sonar_scan.zip
   cd /tmp && unzip -q sonar_scan.zip && rm -f sonar_scan.zip 
   SCAN_FILES="$(echo $(ls . | grep 'sonar-scanner-'))"
-  mv ${SCAN_FILES} ${AST_CI_DIR}/tools/
+  mv ${SCAN_FILES} ${AST_CI_DIR}/tools/sonar-scanner-cli
 }
 
 [[ ${LANG} == "js" ]] && {
