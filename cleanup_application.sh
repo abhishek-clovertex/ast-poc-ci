@@ -7,12 +7,12 @@ PROJECT="${1,,}" ; [[ -z "${PROJECT}" ]] && { echo "Usage : $0 <repo name>" ; ex
 
 cleanup_project(){
     PROJECT_NAME="${1}"
-    echo "[-] Deleting ${PROJECT} From SonarQube"
-    curl -sSLk -u "${SONAR_KEY}:" -X POST "${SONAR_URL}/api/projects/delete?project=${PROJECT}"
-    echo "[-] Deleting ${PROJECT} from Task Mgmt System"
-    curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_KEY}" -X DELETE ${REDMINE_URL}/projects/${PROJECT}.xml
-    echo "[-] Deleting ${PROJECT} from AST Space"
-    rm -rf ${PROJECT_DIR}/${PROJECT}
+    echo "[-] Deleting ${PROJECT_NAME} From SonarQube"
+    curl -sSLk -u "${SONAR_KEY}:" -X POST "${SONAR_URL}/api/projects/delete?project=${PROJECT_NAME}"
+    echo "[-] Deleting ${PROJECT_NAME} from Task Mgmt System"
+    curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_KEY}" -X DELETE ${REDMINE_URL}/projects/${PROJECT_NAME}.xml
+    echo "[-] Deleting ${PROJECT_NAME} from AST Space"
+    rm -rf ${PROJECT_DIR}/${PROJECT_NAME}
 }
 
 [[ "${PROJECT}" == "csv" ]] && {
