@@ -29,17 +29,16 @@ let CNT
 
 [[ ${LANG} == "js" ]] && {
  INC="**.js,**.css,**.ejs,**.html,**.sh,**.md,**.less,**.sass"
- EXC="**/node_modules/**,**/bower_components/***"
+ EXC="**/node_modules/**,**/bower_components/**"
 }
 [[ ${LANG} == "php" ]] && {
- INC="**.js,**.css,**.ejs,**.html,**.sh,**.md,**.php**"
- EXC="**/vendor/**,**/cache/***"
+ INC="**.js,**.css,**.ejs,**.html,**.sh,**.md,**.php"
+ EXC="**/vendor/**,**/cache/**"
 }
 [[ ${LANG} == "python" ]] && {
  INC="**.py,**.css,**,**.html,**.sh,**.md,**.less,**.sass"
- EXC="**/.pyc**,**/.venv/***"
+ EXC="**/.pyc**,**/.venv/**"
 }
-
 
 
 ${SONAR_SCANNER_CLI_PATH} \
