@@ -2,7 +2,7 @@
 ## Author : Abhishek Rana @ Clovertex (https://github.com/tech-alchemist)
 ## Description : Script to cleanUp AST env for specific repo ##
 
-source /opt/ast-ci-poc/config.ini
+source /opt/ast-ci-poc/config.ini || { echo "[-] Config File not found, See ReadMe.md" ; exit 1 ; }
 PROJECT="${1}" ; [[ -z "${PROJECT}" ]] && { echo "Usage : $0 <repo name>" ; exit 1 ; }
 
 echo "[-] Deleting ${PROJECT} From SonarQube"

@@ -2,7 +2,7 @@
 ## Author : Abhishek Rana @ Clovertex (https://github.com/tech-alchemist)
 ## Description : Script to Scan a Repo From SonarQube ##
 
-source /opt/ast-ci-poc/config.ini
+source /opt/ast-poc-ci/config.ini || { echo "[-] Config File not found, See ReadMe.md" ; exit 1 ; }
 
 LOG_DIR="${AST_CI_DIR}/logs"
 helpy1(){ echo "[+] Usage: $0 <language> <repo name>" ; echo "    Where <language> == js , python , php, java" ; }

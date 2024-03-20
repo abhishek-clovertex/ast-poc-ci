@@ -3,7 +3,7 @@
 
 ## AST Specific Settings ##
 
-AST_CI_DIR="/opt-ci-poc"
+AST_CI_DIR="/opt/ast-poc-ci"
 PROJECT_DIR="${AST_CI_DIR}/Projects/"             # Directory to clone projects
 ONBOARD_CSV="${AST_CI_DIR}/extras/onboarding.csv" # Onboarding CSV File
 
