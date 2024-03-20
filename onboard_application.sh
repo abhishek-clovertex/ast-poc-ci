@@ -22,6 +22,7 @@ onboard_project(){
   </project>"
 }
 
+chmod -R ${PROJECT_DIR}
 [[ "${PROJECT}" == "csv" ]] && {
   echo "[+] Parsing XLS/CSV"
 	for i in $(cat ${ONBOARD_CSV} | sed '/^REPO/d')
