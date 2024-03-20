@@ -5,13 +5,15 @@
 source /opt/ast-poc-ci/config.ini || { echo "[-] Config File not found, See ReadMe.md" ; exit 1 ; }
 
 LOG_DIR="${AST_CI_DIR}/logs"
-helpy1(){ echo "[+] Usage: $0 <language> <repo name>" ; echo "    Where <language> == js , python , php, java" ; }
-[[ -z "$1" ]] || [[ -z "$2" ]] && helpy1 && exit 1
-
-DIR_PATH="$2"
-LANG="${1,,}"
-
+helpy1(){ echo "[+] Usage: $0 <repo name>" ; }
+[[ -z "$1" ]] && helpy1 && exit 1
+DIR_PATH="${1}"
 PROJECT="$(basename ${DIR_PATH})"
+
+[[ ! -d "${PROJECT_DIR}/${PROJECT}" ]] && { echo "[-] Project Not Onboarded @ ${PROJECT_DIR}/${PROJECT}." ; exit 1 ; } || { cd ${PROJECT_DIR}/${PROJECT} ; git pull ; }
+
+LANGUAGE=$(cat ${PROJECT_DIR}/${PROJECT}/.scan.yml| grep "^LANGUAGE"| cut -d '=' -f2)
+LANG="${LANGUAGE,,}"
 
 let CNT
 
@@ -36,7 +38,7 @@ let CNT
  EXC="**/.pyc**,**/.venv/***"
 }
 
-[[ ! -d "${PROJECT_DIR}/${PROJECT}" ]] && { echo "[-] Project Not Onboarded @ ${PROJECT_DIR}/${PROJECT}." ; exit 1 ; } || { cd ${PROJECT_DIR}/${PROJECT} ; git pull ; }
+
 
 ${SONAR_SCANNER_CLI_PATH} \
   -Dsonar.projectKey="${PROJECT}" \
