@@ -63,7 +63,7 @@ curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_K
 <status_id>1</status_id>
 <priority_id>3</priority_id>
 <tracker_id>1</tracker_id>
-<subject>AST Pipeline Failed | Found Open ${ISSUES} ${CVE_BLOCKER} Vulnerabilities | ${HOURS} Effort</subject>
+<subject>AST Pipeline Failed | Found Open ${ISSUES} ${CVE_BLOCKER} Vulnerabilities | ${HOURS} Hours Effort</subject>
 <description>We Have Found ${ISSUES} ${CVE_BLOCKER} Vulnerabilities in open stage. Please get them fixed with the team. You can view all details of vulnerabilities at ${SONAR_URL}/project/issues?resolved=false&amp;severities=${CVE_BLOCKER}&amp;id=${PROJECT}</description>
 <estimated_hours>${HOURS}</estimated_hours>
 </issue>"
