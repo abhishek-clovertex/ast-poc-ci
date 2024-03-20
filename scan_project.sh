@@ -21,8 +21,9 @@ let CNT
   echo "[!] Scanner wasn't found." 
   echo "[+] Downloading & Configuring The Scanner in Build Environment..."
   wget -c "${SONAR_SCANNER_CLI_URL}" -O /tmp/sonar_scan.zip
-  cd /tmp && unzip unzip sonar_scan.zip && rm -f sonar_scan.zip 
-  sudo mv sonar-scanner-* ${AST_CI_DIR}/tools/sonar-scanner-cli
+  cd /tmp && unzip sonar_scan.zip && rm -f sonar_scan.zip 
+  SCAN_FILES="$(echo $(ls sonar-scanner-*))"
+  sudo mv ${SCAN_FILES} ${AST_CI_DIR}/tools/sonar-scanner-cli
 }
 
 [[ ${LANG} == "js" ]] && {
