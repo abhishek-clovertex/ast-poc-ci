@@ -20,7 +20,7 @@ let CNT
 [[ ! -f "${SONAR_SCANNER_CLI_PATH}" ]] && { 
   echo "[!] Scanner wasn't found." 
   echo "[+] Downloading & Configuring The Scanner in Build Environment..."
-  wget -c "${SONAR_SCANNER_CLI_URL}" -O /tmp/sonar_scan.zip
+  wget -q -c "${SONAR_SCANNER_CLI_URL}" -O /tmp/sonar_scan.zip
   cd /tmp && unzip sonar_scan.zip && rm -f sonar_scan.zip 
   SCAN_FILES="$(echo $(ls sonar-scanner-*))"
   sudo mv ${SCAN_FILES} ${AST_CI_DIR}/tools/
