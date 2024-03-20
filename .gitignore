@@ -1,0 +1,6 @@
+tools/*
+!tools/.gitignore
+tmp/*
+!tmp/.gitignore
+*.ini
+*test.sh
