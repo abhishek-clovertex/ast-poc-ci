@@ -55,7 +55,9 @@ ${SONAR_SCANNER_CLI_PATH} \
 sleep 10
 
 ISSUES=$(curl -sSLk -u "${SONAR_KEY}:" "${SONAR_URL}/api/issues/search?componentKeys=${PROJECT}&severities=${CVE_BLOCKER}&ps=100&p=1" | jq -r .total)
-HOURS="33"
+MINUTES=$(curl -sSLk -u "${SONAR_KEY}:" "${SONAR_URL}/api/issues/search?componentKeys=${PROJECT}&severities=${CVE_BLOCKER}&ps=100&p=1" | jq -e .effortTotal)
+((hour=${MINUTES}/60)) ; ((min=${MINUTES}-$hour*60)) ; ETA="${hour}h:${min}m"
+
 [[ ${ISSUES} != 0 ]] && { 
 echo "[-] AST Stage triggering Pipeline FAILURE, Found ${ISSUES} ${CVE_BLOCKER} Vulnerabilities" 
 curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_KEY}" -X POST ${REDMINE_URL}/issues.xml --data "<?xml version='1.0' ?> <issue>
@@ -63,9 +65,9 @@ curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_K
 <status_id>1</status_id>
 <priority_id>3</priority_id>
 <tracker_id>1</tracker_id>
-<subject>AST Pipeline Failed | Found Open ${ISSUES} ${CVE_BLOCKER} Vulnerabilities | ${HOURS} Hours Effort</subject>
-<description>We Have Found ${ISSUES} ${CVE_BLOCKER} Vulnerabilities in open stage. Please get them fixed with the team. You can view all details of vulnerabilities at ${SONAR_URL}/project/issues?resolved=false&amp;severities=${CVE_BLOCKER}&amp;id=${PROJECT}</description>
-<estimated_hours>${HOURS}</estimated_hours>
+<subject>AST Pipeline Failed | Found Open ${ISSUES} ${CVE_BLOCKER} Vulnerabilities | Effort ${ETA}</subject>
+<description>We Have Found ${ISSUES} ${CVE_BLOCKER} Vulnerabilities in open stage. Please get them fixed with the team as effort is ${ETA}. You can view all details of vulnerabilities at ${SONAR_URL}/project/issues?resolved=false&amp;severities=${CVE_BLOCKER}&amp;id=${PROJECT}</description>
+<estimated_hours>${hour}</estimated_hours>
 </issue>"
 exit 1 
 } || {
