@@ -3,7 +3,7 @@
 ## Description : Script to Onboard AST for speciifc repo or csv based repos ##
 
 source /opt/ast-poc-ci/config.ini || { echo "[-] Config File not found, See ReadMe.md" ; exit 1 ; }
-PROJECT="${1}" ; [[ -z "${PROJECT}" ]] && { echo "Usage : $0 <repo name>" ; exit 1 ; }
+PROJECT="${1,,}" ; [[ -z "${PROJECT}" ]] && { echo "Usage : $0 <repo name>" ; exit 1 ; }
 
 onboard_project(){
   PROJECT_NAME="${1}"
@@ -22,7 +22,7 @@ onboard_project(){
   </project>"
 }
 
-[[ "${PROJECT,,}" == "csv" ]] && {
+[[ "${PROJECT}" == "csv" ]] && {
   echo "[+] Parsing XLS/CSV"
 	for i in $(cat ${ONBOARD_CSV} | sed '/^REPO/d')
 	do 
