@@ -1,0 +1,41 @@
+## Config File to AST CI POC ##
+## File Location should be  /opt/ast-ci-poc/config.ini ##
+
+## AST Specific Settings ##
+
+AST_CI_DIR="/opt-ci-poc"
+PROJECT_DIR="${AST_CI_DIR}/Projects/"             # Directory to clone projects
+ONBOARD_CSV="${AST_CI_DIR}/extras/onboarding.csv" # Onboarding CSV File
+
+## Required App Specific Tokens ##
+
+REDMINE_KEY="da5266f75ba51a069e80db11f63e773531cfea48"
+REDMINE_URL="https://tasks.ast.cloudv.tricity.help"
+
+SONAR_KEY="squ_0abe749c7b00ebeaddb4f2d4f0f6f810ef940630"
+SONAR_URL="https://sonar.ast.cloudv.tricity.help"
+
+GITHUB_KEY=""
+
+JENKINS_KEY="11d47ca08bf1b3bf4e94be20b81364ef23"
+JENKINS_URL="https://jenkins.ast.cloudv.tricity.help"
+
+# MYSQL Credentials for Storing Vuln Data for further analysis #
+
+DB_HOST="192.168.2.245"
+DB_PORT="3306"
+DB_USER="demo"
+DB_PASS="demo@123"
+DB_NAME="AST_DB"
+
+## SECURITY PARAMS FOR BLOCKING THE PIPLEINE ##
+
+CVE_BLOCKER="MAJOR"		# Category of Vulnerability to Block CI-CD Pipeline
+MINIMUM_VULNS="1"       # Minimum Vulnerabilities count for AST Pipelines
+
+## Scanner App Configs ##
+
+SONAR_SCANNER_CLI_URL="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip"
+SONAR_SCANNER_CLI_PATH="${AST_CI_DIR}/tools/sonar-scanner-cli/bin/sonar-scanner"
+
+

@@ -1,41 +1,35 @@
 #!/bin/bash
-source /home/ubuntu/Scripts/KEYS.ini
+## Author : Abhishek Rana @ Clovertex (https://github.com/tech-alchemist)
+## Description : Script to Onboard AST for speciifc repo or csv based repos ##
 
-PROJECT="${1}"
-[[ -z "${PROJECT}" ]] && { echo "Usage : $0 <repo name>" ; exit 1 ; }
+source /opt/ast-ci-poc/config.ini
+PROJECT="${1}" ; [[ -z "${PROJECT}" ]] && { echo "Usage : $0 <repo name>" ; exit 1 ; }
 
+onboard_project(){
+  PROJECT_NAME="${1}"
+  echo "[+] Onboarding ${PROJECT_NAME}"
+  REPO_URL="git@github.com:abhishek-clovertex/${PROJECT_NAME}.git"
+  echo "[+] Cloning ${PROJECT_NAME} into AST Space from ${REPO_URL}"
+  cd ${PROJECT_DIR} && git clone ${REPO_URL} ${PROJECT_NAME}
+  echo "[+] Creating Sonarqube Project for ${PROJECT_NAME}"
+  curl -sSLk -u "${SONAR_KEY}:" -X POST "${SONAR_URL}/api/projects/create?name=${PROJECT_NAME}&project=${PROJECT_NAME}&visibility=private"
+  echo "[+] Creating Tasks Project for ${PROJECT_NAME}"
+  curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_KEY}" -X POST ${REDMINE_URL}/projects.xml --data "<project>
+    <name>${PROJECT_NAME}</name>
+    <identifier>${PROJECT_NAME}</identifier>
+    <enabled_module_names>time_tracking</enabled_module_names>
+    <enabled_module_names>issue_tracking</enabled_module_names>
+  </project>"
+}
 
 [[ "${PROJECT,,}" == "csv" ]] && {
-
-
-	for i in $(cat /home/ubuntu/OnBoarding.csv | sed '/^REPO/d')
+  echo "[+] Parsing XLS/CSV"
+	for i in $(cat ${ONBOARD_CSV} | sed '/^REPO/d')
 	do 
-		PROJECT="${i}"
-		echo "Onboading From CSV/XLS"
-		REPO_URL="git@github.com:abhishek-clovertex/${PROJECT}.git"
-		cd /home/ubuntu/Projects && git clone ${REPO_URL} ${PROJECT}
-curl -sSLk -u "${SONAR_KEY}:" -X POST "${SONAR_URL}/api/projects/create?name=${PROJECT}&project=${PROJECT}&visibility=private"
-curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_KEY}" -X POST ${REDMINE_URL}/projects.xml --data "<project>
-  <name>${PROJECT}</name>
-  <identifier>${PROJECT}</identifier>
-  <enabled_module_names>time_tracking</enabled_module_names>
-  <enabled_module_names>issue_tracking</enabled_module_names>
-</project>"
-
-done
+    onboard_project ${i}
+  done
 } || { 
-
-                REPO_URL="git@github.com:abhishek-clovertex/${PROJECT}.git"
-                cd /home/ubuntu/Projects && git clone ${REPO_URL} ${PROJECT}
-
-curl -sSLk -u "${SONAR_KEY}:" -X POST "${SONAR_URL}/api/projects/create?name=${PROJECT}&project=${PROJECT}&visibility=private"
-curl -sSLk -H "Content-Type: application/xml" -H "X-Redmine-API-Key: ${REDMINE_KEY}" -X POST ${REDMINE_URL}/projects.xml --data "<project>
-  <name>${PROJECT}</name>
-  <identifier>${PROJECT}</identifier>
-  <enabled_module_names>time_tracking</enabled_module_names>
-  <enabled_module_names>issue_tracking</enabled_module_names>
-</project>"
-
+  onboard_project ${PROJECT}
 }
 
 ## E O F ##
