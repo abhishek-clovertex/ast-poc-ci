@@ -25,4 +25,8 @@ cleanup_project(){
   cleanup_project ${PROJECT}
 }
 
+
+## Cleaning Up Scanner ##
+
+rm -rf ${AST_CI_DIR}/tools/sonar-scanner-cli/
 ## E O F ##

@@ -24,6 +24,7 @@ let CNT
   cd /tmp && unzip -q sonar_scan.zip && rm -f sonar_scan.zip 
   SCAN_FILES="$(echo $(ls . | grep 'sonar-scanner-'))"
   mv ${SCAN_FILES} ${AST_CI_DIR}/tools/sonar-scanner-cli
+  echo "[+] Scanner Onboarded"
 }
 
 [[ ${LANG} == "js" ]] && {
