@@ -6,3 +6,4 @@ tmp/*
 *test.sh
 Projects
 Projects/*
+!Projects/.gitignore
