@@ -17,7 +17,8 @@ SONAR_URL="https://sonar.ast.cloudv.tricity.help"
 
 GITHUB_KEY=""
 
-JENKINS_KEY="11d47ca08bf1b3bf4e94be20b81364ef23"
+JENKINS_USR="beta_user"
+JENKINS_KEY="115d3dc143be57e73fc9dc13e5877368ab"
 JENKINS_URL="https://jenkins.ast.cloudv.tricity.help"
 
 # MYSQL Credentials for Storing Vuln Data for further analysis #
